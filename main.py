@@ -1,19 +1,22 @@
 #email sender with python
-
 #step1: gotta go gmail acount and setup 2 factor authentication
 #step2: generate app pasword
 #step3: create a function to send mail
 
+
 # Import necessary libraries
+
 from email.message import EmailMessage  # Importing EmailMessage class to construct email messages
 import ssl  # Importing SSL for secure connection
 import smtplib  # Importing smtplib for sending emails
 
 # Gmail sender email address and app password
+
 email_sender = "ferdous.frd81@gmail.com"
 email_password = "ksev jcxj npmh eldx"
 
 #getiing user name and emailaddress
+
 personName = input("Please enter the reciever name_\n")
 email_reciever = input("Please give the email address!\n")
 
@@ -32,16 +35,29 @@ Yours truly,
 The king and slayer of dragons,
 Ferdous the mighty!
 """
+
 #trying to change part of email body
+
 def changingMsgParts(str):
     wordsToChange = input("What words or lines you want to change?\n")
     wordsThatReplaces = input("New words that replaces old ones..\n")
     modified_str = str.replace(wordsToChange, wordsThatReplaces)
     return modified_str
 
+#function to send the email
+
+def sendingMail():
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as smtp:
+        smtp.login(email_sender, email_password)
+        smtp.sendmail(email_sender, email_reciever, em.as_string())
+
 # Prompt user for choice
+        
 choice = int(input("press 1 for changing email or 2 for send same email!\n"))
+
 if choice == 1:
+
     body = changingMsgParts(body)
 
     # Create EmailMessage object
@@ -51,13 +67,10 @@ if choice == 1:
     em["subject"] = subject
     em.set_content(body)
 
-    context = ssl.create_default_context()
+    sendingMail()    # Sending the email
 
-    # Sending the email
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as smtp:
-        smtp.login(email_sender, email_password)
-        smtp.sendmail(email_sender, email_reciever, em.as_string())
 else:
+    
     # Create EmailMessage object
     em = EmailMessage()
     em["From"] = email_sender
@@ -65,12 +78,7 @@ else:
     em["subject"] = subject
     em.set_content(body)
 
-    context = ssl.create_default_context()
-
-    # Sending the email
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as smtp:
-        smtp.login(email_sender, email_password)
-        smtp.sendmail(email_sender, email_reciever, em.as_string())
+    sendingMail()    # Sending the email
 
 
 
