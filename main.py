@@ -12,7 +12,7 @@ import smtplib
 email_sender = "ferdous.frd81@gmail.com"
 email_password = "ksev jcxj npmh eldx"
 
-email_reciever = "viktoriia.martynenko@tuni.fi"
+email_reciever = input("Please give the email address!\n")
 
 subject = "Valentines Special <3 "
 body = """
